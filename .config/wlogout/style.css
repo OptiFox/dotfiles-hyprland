@@ -1,0 +1,52 @@
+* {
+  background-image: none;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+window {
+  background-color: rgba(30, 30, 46, 0.6);
+}
+
+button {
+  border-radius: 26px;
+  color: #eedfbe;
+  border: 2px solid rgba(137, 180, 250, 0.4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30%;
+  padding: 0px;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  margin: 10px;
+}
+
+button:hover,
+button:focus,
+button:active {
+  outline-style: none;
+  margin-bottom: 30px;
+  margin-top: -30px;
+  box-shadow: 20px 20px 30px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* --- Icon Definitions --- */
+#lock {
+  background-image: image(url("/usr/share/wlogout/icons/lock.png"));
+}
+#logout {
+  background-image: image(url("/usr/share/wlogout/icons/logout.png"));
+}
+#suspend {
+  background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
+}
+#hibernate {
+  background-image: image(url("/usr/share/wlogout/icons/hibernate.png"));
+}
+#shutdown {
+  background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
+}
+#reboot {
+  background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
+}

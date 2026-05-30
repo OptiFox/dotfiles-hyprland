@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# 1. Ask for the password once at the very beginning
+sudo -v
+
+# 2. Keep the sudo timestamp fresh in the background
+# This runs every 1 minute to tell the system "I'm still here"
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done &
+
+# 3. Your update loop
+until yay -Syu --noconfirm; do
+  echo "Connection dropped. Retrying in 5 seconds..."
+  sleep 5
+done
+
+echo "Update successful!"

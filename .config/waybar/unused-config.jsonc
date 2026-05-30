@@ -1,0 +1,33 @@
+"custom/notification": {
+  "tooltip": true,
+  "format": "<span size='16pt'>{icon}</span>",
+  "format-icons": {
+    "notification": "󱅫",
+    "none": "󰂜",
+    "dnd-notification": "󰂠",
+    "dnd-none": "󰪓",
+    "inhibited-notification": "󰂛",
+    "inhibited-none": "󰪑",
+    "dnd-inhibited-notification": "󰂛",
+    "dnd-inhibited-none": "󰪑",
+  },
+  "return-type": "json",
+  "exec-if": "which swaync-client",
+  "exec": "swaync-client -swb",
+  "on-click": "swaync-client -t -sw",
+  "on-click-right": "swaync-client -d -sw",
+  "escape": true,
+},
+  "backlight": {
+  "device": "intel_backlight",
+  "format": "{percent}% {icon}",
+  "format-icons": ["", "", "", "", "", "", "", "", ""],
+  "on-scroll-up": "brightnessctl set 5%+",
+  "on-scroll-down": "brightnessctl set 5%-",
+  "min-length": 6,
+},
+
+// modules
+"tray",
+"backlight",
+"custom/notification",

@@ -1,0 +1,15 @@
+[general]
+bars = 6
+
+[output]
+method = raw
+raw_target = /dev/stdout
+data_format = ascii
+ascii_max_range = 7
+# Remove the 'ascii_data_format = box' lines—they don't apply to raw ascii mode.
+
+[input]
+# If it stays as zeros even when music plays, try changing 'pulse' to 'pipewire'
+method = pulse
+source = auto
+

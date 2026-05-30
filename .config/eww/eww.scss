@@ -1,0 +1,118 @@
+window {
+  background-color: transparent;
+}
+
+.main-box {
+  background-color: rgba(30, 30, 46, 0.8);
+  color: #cdd6f4;
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #89b4fa;
+  min-height: 300px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  background-color: #313244; // Surface0
+  border: 2px solid ;
+  color: #89b4fa; // Blue
+  min-width: 85px;
+  min-height: 85px;
+
+  /* Increase icon size to match the larger button */
+  font-size: 24px;
+  border-radius: 12px;
+
+  /* The transition makes the hover feel "premium" */
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    background-color: #45475a; // Surface1
+  }
+}
+
+.active {
+  background-color: #89b4fa; // Blue
+  color: #1e1e2e; // Base (Dark text for contrast)
+  border: none;
+
+  &:hover {
+    background-color: #b4befe; // Lavender (Lighter blue)
+  }
+}
+.inactive {
+  background-color: #313244;
+  color: #585b70;
+}
+
+.sliders-container {
+  padding: 10px 5px;
+  font-size: 16px;
+}
+
+scale trough {
+  background-color: #313244;
+  border-radius: 10px;
+  min-height: 12px;
+  min-width: 160px;
+
+  highlight {
+    background-color: #89b4fa;
+    border-radius: 10px;
+  }
+
+  /* Makes the trough slightly lighter when you hover the slider */
+  &:hover {
+    background-color: #45475a;
+  }
+}
+
+.br-bar highlight {
+  background-color: #f9e2af;
+}
+
+.percent-text {
+  font-size: 14px;
+  min-width: 50px;
+  background-color: #313244;
+  border: 2px solid #585b70;
+  border-radius: 12px;
+}
+
+.battery-box {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #313244;
+  border: 2px solid #585b70;
+  border-radius: 12px;
+}
+
+.power-btn {
+  font-size: 18px;
+  border-radius: 12px;
+  background-color: #313244;
+  transition: all 200ms ease-in-out;
+  padding: 12px;
+
+  /* Hover effects for different actions */
+  &.shutdown:hover { background-color: #f38ba8; color: #1e1e2e; } // Red
+  &.reboot:hover   { background-color: #fab387; color: #1e1e2e; } // Peach
+  &.lock:hover     { background-color: #f9e2af; color: #1e1e2e; } // Yellow
+  &.suspend:hover  { background-color: #a6e3a1; color: #1e1e2e; } // Green
+  &.logout:hover   { background-color: #cba6f7; color: #1e1e2e; } // Mauve
+}
+
+.power-box {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #89b4fa;
+  min-height: 50px;
+  font-weight: bold;
+}

@@ -1,0 +1,148 @@
+@import "colors/catppuccin.css";
+
+* {
+  border: none;
+  border-radius: 0;
+
+  font-family: "Adwaita Sans", "JetBrainsMono Nerd Font Propo", "sans-serif";
+  font-weight: bold;
+
+  min-height: 24px;
+  padding: 0;
+  margin: 0;
+}
+
+window#waybar {
+  background: rgba(30, 30, 46, 0.8);
+  border-radius: 24px;
+  border: 2px solid @bg3;
+}
+
+tooltip {
+  background: @bg0;
+  border: 1px solid @bg3;
+  border-radius: 12px;
+}
+
+tooltip label {
+  color: @fg;
+  padding: 6px;
+}
+
+#window {
+  margin: 0 0 0 12px;
+}
+
+#workspaces {
+  padding: 2px 3px 0px;
+  color: @fg;
+}
+
+#workspaces button {
+  padding: 0px 6px;
+  margin: 2px 6px;
+  color: transparent;
+  border-top: 3px solid @bg1;
+  transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+  border-top: 3px solid @blue;
+  color: @bg0;
+  min-width: 45px;
+  background-size: 400% 400%;
+  background: transparent;
+}
+
+#workspaces button:hover {
+  border-top: 3px solid @purple;
+  color: @bg0;
+  min-width: 45px;
+  background-size: 400% 400%;
+  background: transparent;
+}
+
+#workspaces button.urgent {
+  border-top: 3px solid @red;
+  color: @bg0;
+  min-width: 45px;
+  background-size: 400% 400%;
+  background: transparent;
+}
+
+#battery,
+#pulseaudio,
+#backlight,
+#network,
+#clock,
+#custom-notification,
+#custom-arch,
+#mpris {
+  padding: 0 15px;
+}
+
+#backlight {
+  color: @orange;
+}
+
+#mpris {
+  padding: 0 8px 0 0;
+  margin: 4px 0px;
+}
+
+#custom-cava {
+  all: unset;
+  min-height: 12px;
+
+  margin: 10px 0px;
+
+  padding: 0 8px;
+  color: @blue;
+
+  font-size: 10px;
+}
+
+#clock {
+  color: @blue;
+}
+
+#custom-notification {
+  color: @fg;
+}
+
+#pulseaudio {
+  color: @yellow;
+  padding: 8px;
+}
+
+#network {
+  color: @purple;
+  padding: 8px;
+}
+
+#battery {
+  color: @green;
+  padding: 8px;
+}
+
+#custom-arch {
+  color: #1793d1;
+  padding-left: 24px;
+  font-size: 20px;
+}
+
+#custom-separator {
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#custom-tray-icon {
+  color: #89b4fa; /* Catppuccin Blue */
+  padding: 0 8px;
+}
+
+#tray {
+  padding: 0 0 0 8px;
+}

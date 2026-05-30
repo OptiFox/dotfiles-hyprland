@@ -1,0 +1,144 @@
+{
+  "position": "top",
+  "margin-top": 6,
+  "margin-right": 6,
+  "margin-left": 6,
+  "modules-left": ["custom/arch", "custom/separator", "hyprland/window"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "custom/cava",
+    "mpris",
+    "custom/separator",
+    "group/tray-drawer",
+    "custom/separator",
+    "battery",
+    "pulseaudio",
+    "network",
+    "custom/separator",
+    "clock",
+  ],
+  "hyprland/window": {
+    "rewrite": {
+      "(.*) - Firefox": "$1",
+      "(.*) - kitty": "[$1]",
+    },
+    "separate-outputs": true,
+    "max-length": 30,
+  },
+  "custom/arch": {
+    "format": "",
+    "tooltip": false,
+    // "on-click": "sh -c 'pkill rofi || ~/.config/rofi/powermenu/type-1/powermenu.sh'",
+    // "on-click": "eww open --toggle powermenu",
+    "on-click": "wlogout -b 5 -T 400 -B 400",
+  },
+  "custom/separator": {
+    "format": "|",
+    "interval": "once",
+    "tooltip": false,
+  },
+  "clock": {
+    "format": "{:%a %b %d - %I:%M %p}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "active": " ",
+      "default": " ",
+    },
+    "persistent-workspaces": {
+      "*": 5, // 5 workspaces by default on every monitor
+      "HDMI-A-1": 3, // but only three on HDMI-A-1
+    },
+    "sort-by-number": true,
+  },
+  "custom/cava": {
+    "exec": "~/.config/waybar/scripts/waybar-cava.sh",
+    "format": "{}",
+    "tooltip": false,
+  },
+  "mpris": {
+    "format": "{title} - {artist}", // {player_icon} removed
+    "format-paused": "{title} - {artist}</i>", // {status_icon} and <i> removed
+    "player-icons": {
+      "default": "󰎆",
+      "spotify": "",
+      "firefox": "󰈹",
+      "mpd": "",
+    },
+    "status-icons": {
+      "paused": "󰏤",
+    },
+    "max-length": 23,
+  },
+  "pulseaudio": {
+    "format": "{icon}", // {volume}% removed
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "default": ["", ""],
+    },
+    "scroll-step": 1,
+    "on-click": "pamixer -t",
+    "on-click-right": "pavucontrol",
+    "ignored-sinks": ["Easy Effects Sink"],
+  },
+  "network": {
+    "interface": "wlan0",
+    "format": "{ifname}",
+    "format-wifi": "",
+    "format-ethernet": "󰊗",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    // "on-click": "exec dms ipc call control-center open",
+    "on-click": "eww open --toggle control_center",
+    "on-click-right": "networkmanager_dmenu",
+  },
+  "battery": {
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon}", // {capacity}% removed
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25,
+    "on-click": "eww open --toggle control_center",
+  },
+  "group/tray-drawer": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "tray-child",
+      "transition-left-to-right": false,
+      "click-to-reveal": true
+    },
+    "modules": [
+      "custom/tray-icon", // This is your "toggle" button
+      "tray" // The actual system tray
+    ]
+  },
+
+  "custom/tray-icon": {
+    "format": "", // Or use a '' or '󰒓' icon
+    "tooltip": false,
+  },
+
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10,
+  },
+}

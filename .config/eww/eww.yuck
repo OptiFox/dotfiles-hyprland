@@ -1,0 +1,80 @@
+(defpoll wifi_icon :interval "1s" "scripts/network.sh get_wifi_icon")
+(defpoll bt_icon   :interval "1s" "scripts/network.sh get_bt_icon")
+(defpoll battery_icon :interval "5s" "scripts/battery.sh icon")
+(defpoll battery_percent :interval "5s" "scripts/battery.sh percent")
+
+(defpoll wifi_status :interval "1s" "nmcli -t -f DEVICE,STATE dev | grep -q 'wlan0:connected' && echo connected || echo disconnected")
+(defpoll bt_status   :interval "1s" "bluetoothctl show | grep -q 'Powered: yes' && echo on || echo off")
+
+(defpoll current_volume :interval "1s" "scripts/volume.sh get_vol")
+(defpoll current_brightness :interval "1s" "scripts/volume.sh get_bright")
+
+(defwindow control_center
+  :monitor 0
+  :geometry (geometry :x "10px" :y "10px" :width "340px" :height "300px" :anchor "top right")
+  :stacking "fg"
+  (main_layout))
+
+(defwidget main_layout []
+  (box :class "main-box" :orientation "v" :space-evenly false :spacing 10
+    (label :text "Control Center" :class "title")
+
+    (box :class "toggles-row" :halign "center" :spacing 20 :space-evenly false
+      (button :onclick "kitty --class floating_nmtui -e nmtui & eww close control_center"
+              :class {wifi_status == "connected" ? "toggle-btn active" : "toggle-btn inactive"}
+              wifi_icon)
+      (button :onclick "blueman-manager & eww close control_center"
+              :class {bt_status == "on" ? "toggle-btn active" : "toggle-btn inactive"}
+              bt_icon))
+
+    (sliders)
+
+    (box :class "battery-box" :orientation "h" :space-evenly false :spacing 15 :halign "center"
+      (label :text battery_icon :class "bat-icon")
+      (label :text "${battery_percent}%" :class "bat-text"))
+  ))
+
+(defwidget sliders []
+  (box :class "sliders-container" :orientation "v" :spacing 20
+    (box :orientation "h" :space-evenly false :spacing 10
+      (label :text "󰕾" :class "slider-icon")
+      (scale :class "vol-bar" :value current_volume :orientation "h" :max 101 :min 0 :hexpand true
+             :onchange "scripts/volume.sh set_vol {} && eww update current_volume={}")
+      (label :text "${current_volume}%" :class "percent-text"))
+    
+    (box :orientation "h" :space-evenly false :spacing 10
+      (label :text "󰃠" :class "slider-icon")
+      (scale :class "br-bar" :value current_brightness :orientation "h" :max 101 :min 0 :hexpand true
+             :onchange "scripts/volume.sh set_bright {} && eww update current_brightness={}")
+      (label :text "${current_brightness}%" :class "percent-text"))
+  ))
+
+;; Power Menu Window
+(defwindow powermenu
+  :monitor 0
+  :geometry (geometry :x "10px" :y "10px" :width "300px" :height "120px" :anchor "top left")
+  :stacking "fg"
+  (powermanager))
+
+(defwidget powermanager []
+  (box :class "power-box" 
+       :orientation "v" 
+       :space-evenly false 
+       :spacing 10
+       :halign "left"
+       :valign "center"
+    (label :text "Power Menu" :class "title")
+    (button :class "power-btn shutdown" 
+            :onclick "systemctl poweroff && eww close powermenu" "󰐥  Shutdown")
+            
+    (button :class "power-btn reboot"   
+            :onclick "systemctl reboot && eww close powermenu" "󰜉  Reboot")
+            
+    (button :class "power-btn lock"     
+            :onclick "hyprlock & eww close powermenu" "󰌾  Lock")
+            
+    (button :class "power-btn suspend"  
+            :onclick "systemctl suspend && eww close powermenu" "󰤄  Suspend")
+            
+    (button :class "power-btn logout"   
+            :onclick "hyprctl dispatch exit && eww close powermenu" "󰍃  Log Out")))

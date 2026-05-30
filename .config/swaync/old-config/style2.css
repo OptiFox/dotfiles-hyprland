@@ -1,0 +1,56 @@
+@import "../themes/global.css";
+
+/* --- Variables --- */
+@define-color bg             alpha(@base, 0.75);
+@define-color main-color     @blue;
+
+* {
+  color: @text;
+  all: unset;
+  font-size: 15px;
+  font-family: "Iosevka Nerd Font Propo", "JetBrainsMono Nerd Font";
+  transition: 200ms;
+}
+
+.control-center {
+  background: @bg;
+  border-radius: 12px;
+  border: 1px solid alpha(@lavender, 0.3);
+  margin: 18px;
+  padding: 12px;
+}
+
+.notification-background {
+  background-color: @surface1;
+  border: 1px solid alpha(@blue, 0.2);
+  border-radius: 8px;
+  margin: 6px 0px;
+  padding: 10px;
+}
+
+/* Specific widgets to make them pop */
+.widget-title {
+  color: @lavender;
+  font-weight: bold;
+}
+.widget-dnd > switch:checked {
+  background: @green;
+}
+
+.widget-mpris-player {
+  background-color: @surface0;
+  border: 1px solid @surface1;
+  border-radius: 10px;
+}
+
+/* Sliders */
+trough {
+  background-color: @surface1;
+  border-radius: 8px;
+  min-height: 8px;
+}
+
+highlight {
+  background-color: @blue;
+  border-radius: 8px;
+}

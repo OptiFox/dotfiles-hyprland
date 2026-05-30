@@ -1,0 +1,12 @@
+/**
+ *
+ * Author : Aditya Shakya (adi1090x)
+ * Github : @adi1090x
+ * 
+ * Fonts
+ *
+ **/
+
+* {
+    font: "Adwaita Sans Bold 10", "JetBrainsMono Nerd Font Propo Bold 10";
+}
