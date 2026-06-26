@@ -3,6 +3,8 @@
 ---------------------
 
 local mainMod = "SUPER"
+local terminal = "kitty"
+local fileManager = "thunar"
 
 -- SwayOSD
 --- SwayOSD Volume & Brightness ---
@@ -45,19 +47,11 @@ hl.bind(mainMod .. " + CTRL + mouse_up", hl.dsp.window.move({ workspace = "e-1" 
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true }) -- left button
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true }) -- right button
 
---- Enter resize mode with submap ---
-hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
-
-hl.define_submap("resize", function()
-
-    hl.bind("right", hl.resize({ x = 10, y = 0, relative = true}), { repeating = true })
-    hl.bind("left", hl.resize({ x = -10, y = 0, relative = true}), { repeating = true })
-    hl.bind("up", hl.resize({ x = 0, y = 10, relative = true}), { repeating = true })
-    hl.bind("down", hl.resize({ x = 10, y = -10, relative = true}), { repeating = true })
-
-    hl.bind("escape", hl.dsp.submap("reset")) -- reset to leave mode
-
-end)
+--- Resize window ---
+hl.bind(mainMod .. " + equal", hl.dsp.window.resize({ x = 50, y = 0, relative = true}), { repeating = true })
+hl.bind(mainMod .. " + minus", hl.dsp.window.resize({ x = -50, y = 0, relative = true}), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + equal", hl.dsp.window.resize({ x = 0, y = 50, relative = true}), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + minus", hl.dsp.window.resize({ x = 0, y = -50, relative = true}), { repeating = true })
 
 --- Move focus with mainMod + arrow keys ---
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -65,9 +59,61 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
---[[ TODO
-1. Move window position
-2. Add special work space for "minimized"
-3. Add toggle floating
-4. All the software I use
-]]--
+--- Move window position ---
+for i = 1, 4 do
+    local arrowkey = { "Left", "Right", "Up", "Down" }
+    local focusdir = { "l", "r", "u", "d" }
+    hl.bind(mainMod .. " + SHIFT + " .. arrowkey[i], hl.dsp.window.move({ direction = focusdir[i] }),
+        { description = "Window: Move " .. arrowkey[i] })
+end
+
+--- Toggle floating ---
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.window.float({ action = "toggle" }), { description = "Window: Float/Tile" })
+
+--- Toggle Fullscreen ---
+hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }), { description = "Window: Fullscreen" })
+
+--- Special workspace for "minimized" ---
+hl.bind(mainMod .. " + M",
+    hl.dsp.window.move({ workspace = "special:minimized", follow = false }), { description = "Window: Minimize" })
+hl.bind(mainMod .. " + SHIFT + M", hl.dsp.workspace.toggle_special("minimized"))
+
+--- Close window ---
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close(), { description = "Window: Close" })
+
+
+-- Software
+--- Terminal ---
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
+
+--- File Manager ---
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+
+--- Rofi ---
+local rofiApp = "pkill rofi || ~/.config/rofi/launcher.sh"
+local rofiClipboard = 'pkill rofi || cliphist list | rofi -dmenu -display-columns 2 -p " 󰅍 " -theme ~/.config/rofi/style-2.rasi | cliphist decode | wl-copy'
+local rofiWallpaper = "pkill rofi || ~/.config/hypr/scripts/wallpaper-picker.sh"
+local rofiEmoji = 'pkill rofi || rofimoji --files all --action type copy --prompt " ⬢ " --selector-args="-theme ~/.config/rofi/style-2.rasi"'
+
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(rofiApp))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(rofiClipboard))
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd(rofiWallpaper))
+hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofiEmoji))
+
+--- Screenshot ---
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -zm region"), { description = "Screenshot: Select Region" })
+hl.bind("Print", hl.dsp.exec_cmd("hyprshot -zm region"))
+hl.bind("ALT + Print", hl.dsp.exec_cmd("hyprshot -zm window"), { description = "Screenshot: Select Window" })
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -zm output"), { description = "Screenshot: Select Monitor" })
+
+--- Notification ---
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+
+--- Wlogout ---
+hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("pkill wlogout || wlogout -b 5 -T 400 -B 400"))
+
+--- On-Screen Keyboard ---
+hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("pkill wvkbd-mobintl || wvkbd-mobintl -L 400 -H 400 -l full,arabic --landscape-layers full,arabic"))
+
+--- Toggle Dock ---
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd('pkill nwg-dock-hyprla || nwg-dock-hyprland -x -mb 2 -i 33 -w 5 -c "rofi -show drun -theme ~/.config/rofi/style-1.rasi" -lp start -ico /usr/share/pixmaps/archlinux-logo.svg'))
