@@ -25,3 +25,4 @@ This is my simple Hyprland setup on Arch Linux, with Catppuccin Mocha colorschem
 * [adi1090x rofi](https://github.com/adi1090x/rofi) - By using this config, I managed to configure the rofi to my liking.
 * [saneAspect](https://www.youtube.com/@saneAspect) - The person who taught me the basics of Hyprland ricing.
 * [LierB fastfetch](https://github.com/LierB/fastfetch) - Custom fastfetch.
+* [end-4 dots](https://github.com/end-4/dots-hyprland/tree/main) - Used as guides to convert to hyprland.lua
