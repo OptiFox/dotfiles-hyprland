@@ -1,3 +1,7 @@
+------------------
+---- HYPRLAND ----
+------------------
+
 require("modules.autostart")
 require("modules.binds")
 require("modules.colors")
